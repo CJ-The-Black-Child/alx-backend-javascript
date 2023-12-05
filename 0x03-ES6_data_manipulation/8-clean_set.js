@@ -9,7 +9,7 @@ export default function cleanSet(set, startString) {
       const valSubStr = value.substring(startString.length);
       if (valSubStr && valSubStr !== value) {
         strParts.push(valSubStr);
-        }
+      }
     }
   }
   return strParts.join('-');
