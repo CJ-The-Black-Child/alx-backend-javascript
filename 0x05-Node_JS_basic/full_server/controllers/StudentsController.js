@@ -1,26 +1,36 @@
-const fs = require('fs');
+const readDatabase = require('../utils');
 
-const readDatabase = (path) => new Promise((resolve, reject) => {
-  fs.readFile(path, 'utf8', (err, data) => {
-    if (err) {
-      reject(err);
-      return;
-    }
-    const students = data.split('\n')
-      .filter(Boolean)
-      .map((item) => item.split(','));
-    const fields = students.reduce((acc, student, i) => {
-      if (i !== 0) {
-        if (!acc[student[3]]) acc[student[3]] = [];
-        acc[student[3]].push(student[0]);
+class StudentsController {
+  static getAllStudents (request, response, DATABASE) {
+    readDatabase(DATABASE).then((fields) => {
+      const students = [];
+
+      students.push('This is the list of our students');
+
+      for (const key of Object.keys(fields)) {
+        const msg = `Number of students in ${key}: ${fields[key].length}. List: ${fields[key].join(', ')}`;
+        students.push(msg);
       }
-      return acc;
-    }, {});
+      response.status(200).send(`${students.join('\n')}`);
+    }).catch(() => {
+      response.status(500).send('Cannot load the database');
+    });
+  }
 
-    delete fields.field;
+  static getAllStudentsByMajor (request, response, DATABASE) {
+    const { major } = request.params;
 
-    resolve(fields);
-  });
-});
+    if (major !== 'CS' && major !== 'SWE') {
+      response.status(500).send('Major parameter must be CS or SWE');
+    } else {
+      readDatabase(DATABASE)
+        .then((fields) => {
+          const students = fields[major];
+          response.status(200).send(`List: ${students.join(', ')}`);
+        })
+        .catch(() => response.status(500).send('Cannot load the database'));
+    }
+  }
+}
 
-module.exports = readDatabase;
+module.exports = StudentsController;

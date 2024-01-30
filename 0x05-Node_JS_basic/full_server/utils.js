@@ -6,7 +6,8 @@ const readDatabase = (path) => new Promise((resolve, reject) => {
       reject(Error(err));
       return;
     }
-    let students = data.split('\n').filter(Boolean);
+    const content = data.split('\n');
+    let students = content.filter(Boolean);
     students = students.map((item) => item.split(','));
 
     const fields = {};
