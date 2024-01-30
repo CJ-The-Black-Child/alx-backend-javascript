@@ -10,9 +10,11 @@ const app = http.createServer(async (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
 
-  if (req.url === '/') {
+  const { url } = req;
+
+  if (url === '/') {
     res.end('Hello Holberton School!');
-  } else if (req.url === '/students') {
+  } else if (url === '/students') {
     try {
       const students = await countStudents(DATABASE);
       res.end(`This is the list of our students\n${students.join('\n')}`);
