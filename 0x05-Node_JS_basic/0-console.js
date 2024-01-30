@@ -1,2 +1,5 @@
 #!/usr/bin/node
-module.exports = console.log;
+const displayMessage = (message) => {
+  console.log(message);
+};
+module.exports = displayMessage;
