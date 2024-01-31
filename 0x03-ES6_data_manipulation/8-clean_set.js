@@ -1,4 +1,4 @@
-export default function cleanSet(set, startString) {
+export default function cleanSet (set, startString) {
   const strParts = [];
 
   if (!set || !startString || !(set instanceof Set) || typeof startString !== 'string') {
