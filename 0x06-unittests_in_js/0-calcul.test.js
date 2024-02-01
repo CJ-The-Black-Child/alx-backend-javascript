@@ -14,8 +14,8 @@ describe('Tests for calculateNumber', function () {
     });
   });
 
-  describe('Sums one float & one integer (round down):', function() {
-    it('should return int', function() {
+  describe('Sums one float & one integer (round down):', function () {
+    it('should return int', function () {
       assert.strictEqual(calculateNumber(1, 3.3), 4);
     });
   });
