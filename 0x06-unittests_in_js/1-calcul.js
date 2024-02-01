@@ -1,18 +1,20 @@
 function calculateNumber(type, a, b) {
-    switch(type) {
-        case 'SUM':
-            return Math.round(a) + Math.round(b);
-        case 'SUBTRACT':
-            return Math.round(a) - Math.round(b);
-        case 'DIVIDE':
-            if(Math.round(b) == 0) {
-                return 'Error';
-            } else {
-                return Math.round(a) / Math.round(b);
-            }
-        default:
-                return 'Error';
+    let firstNum = Math.round(a);
+    let secondNum = Math.round(b);
+
+    if (type === 'SUM') {
+        return firstNum + secondNum;
     }
-}
+
+    if (type === 'SUBTRACT') {
+        return firstNum - secondNum;
+    }
+
+    if (type === 'DIVIDE') {
+        return secondNum === 0 ? 'Error' : firstNum / secondNum;
+    }
+
+    return 'Error';
+};
 
 module.exports = calculateNumber;
